@@ -25,6 +25,8 @@ jobs:
       - name: Install dependencies
         if: steps.cache-pipenv.outputs.cache-hit != 'true'
         run: |
+          pip install setuptools==21.2.1
+          pip install flask
           pipenv install --deploy --dev
           
       - name: Snyk SetUp
