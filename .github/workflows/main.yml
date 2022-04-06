@@ -17,7 +17,7 @@ jobs:
           python -m pip install --upgrade pipenv wheel
           
       - name: Snyk SetUp
-      - uses: snyk/actions/setup@master
+        uses: snyk/actions/setup@master
       
       - name: Snyk monitor
         run: snyk monitor
