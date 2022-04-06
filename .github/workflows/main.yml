@@ -22,11 +22,16 @@ jobs:
           path: ~/.local/share/virtualenvs
           key: ${{ runner.os }}-pipenv-${{ hashFiles('**/Pipfile.lock') }}
           
+      - name: Install dependencies
+        if: steps.cache-pipenv.outputs.cache-hit != 'true'
+        run: |
+          pipenv install --deploy --dev
+          
       - name: Snyk SetUp
         uses: snyk/actions/setup@master
       
       - name: Snyk monitor
-        run: snyk monitor
+        run: snyk monitor --file=Pipfile 
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       
